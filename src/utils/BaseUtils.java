@@ -17,6 +17,8 @@ public class BaseUtils {
 	//获得连接的方法
 	// 定义一个数据库连接对象
 	private Connection conn;
+	private ResultSet rs;
+	private PreparedStatement pst;
 	
 	// 获得数据库连接的方法
 	public Connection getConn() {
@@ -34,7 +36,6 @@ public class BaseUtils {
 	//释放资源的方法
 	public static void closeAll(ResultSet rs,PreparedStatement pst,Connection conn)
 	{
-		
 		try {
 			if(rs!=null)
 			{
@@ -51,5 +52,12 @@ public class BaseUtils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	//通用查询所有数据的方法
+	public static ResultSet selectAll(String sql,Object ...parmes) {
+		
+		return null;
+		
 	}
 }
