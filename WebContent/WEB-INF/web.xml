@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>SMBMSJDBC</display-name>
+  <welcome-file-list>
+  	<!-- 希望访问项目默认从登录页开始 -->
+  	<welcome-file>/WEB-INF/jsp/login.jsp</welcome-file>
+  </welcome-file-list>
+  <!-- 一切的web应用程序都是走web.xml文件开始的 -->
+  <!-- 1、加载spring配置文件,加载到上下文中 -->
+  <context-param>
+  	<!-- 指定文件的位置 -->
+  	<param-name>contextConfigLocation</param-name>
+  	<!-- 指定文件的值 -->
+  	<param-value>classpath:applicationContext-*.xml</param-value>
+  </context-param>
+  <!-- 2、启动父容器 listener（监听器） -->
+  <listener>
+  	<!-- 配置一个启动父容器的类 contextLoadListener -->
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <!-- 解决增加时出现的中文乱码，过滤器 -->
+  <filter>
+  	<!-- 拦截器的名称 -->
+  	<filter-name>encodingFilter</filter-name>
+  	<!-- 拦截器类的全路径名 -->
+  	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+  	<!-- 初始化参数值 -->
+  	<init-param>
+  		<param-name>encoding</param-name>
+  		<param-value>UTF-8</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>forceRequestEncoding</param-name>
+  		<param-value>true</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>forceResponseEncoding</param-name>
+  		<param-value>true</param-value>
+  	</init-param>
+  </filter>
+  <!-- 配置过滤器的映射 -->
+  <filter-mapping>
+  	<filter-name>encodingFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!-- 3、配置SpringMVC的核心servlet DispatcherServelt -->
+  <servlet>
+  	<servlet-name>springmvc</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<!-- 因为springmvc的配置文件我们是放在资源文件夹中 -->
+  	<init-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>classpath:springmvc-servlet.xml</param-value>
+  	</init-param>
+  	<!-- 让这个核心servlet随着应用程序一起启动 -->
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <!-- 4、配置servelt的映射 -->
+  <servlet-mapping>
+  	<servlet-name>springmvc</servlet-name>
+  	<!-- 所有的请求都要经过这个servlet -->
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
+</web-app>

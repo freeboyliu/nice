@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//resources/datasource.properties=UTF-8
+encoding//src/cn/smbms/controller/UserController.java=UTF-8
+encoding//src/cn/smbms/dao/BaseDao.java=UTF-8
+encoding//src/cn/smbms/pojo/User.java=UTF-8

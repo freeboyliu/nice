@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- 启动对HandleMapping和HandleAdapter的支持节点 -->
+    <mvc:annotation-driven />
+    <!-- 扫描所有的handle -->
+    <context:component-scan base-package="cn.smbms.controller"/>
+    <!-- 配置视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<!-- 配置前缀 -->
+    	<property name="prefix" value="/WEB-INF/jsp/"/>
+    	<!-- 配置后缀 -->
+    	<property name="suffix" value=".jsp"/>
+    </bean>
+    
+    <!-- 对静态资源文件进行一个访问的映射 -->
+    <!-- 
+    	location：静态资源存放的位置在什么地方
+    	mapping：对静态资源进行一个路径映射
+     -->
+    <mvc:resources location="/static/" mapping="/static/**"/>
+    
+    <!-- 配置一个全局的异常处理 -->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+    	<!-- exceptionMappings : 在里面可以配置多种异常类型 -->
+    	<property name="exceptionMappings">
+    		<props>
+    			<prop key="java.lang.RuntimeException">error</prop>
+    			<prop key="java.lang.Exception">login</prop>
+    		</props>
+    	</property>
+    </bean>
+</beans>        
